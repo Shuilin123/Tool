@@ -1,13 +1,13 @@
-Attribute VB_Name = "Ä£¿é1"
-' Copyright @2025-2035 Zhuo Li, All Rights Reserved.
-' Email:9031003831@qq.com
+Attribute VB_Name = "æ¨¡å—1"
+' Copyright @2025-2035 Shuilin, All Rights Reserved.
+' Email:http://www.github.com/Shuilin123/
 ' Date 2025.4.14
 
-' ±ê×¼Ä£¿éÖĞµÄ´úÂë£¨Èç Module1£©
+' æ ‡å‡†æ¨¡å—ä¸­çš„ä»£ç ï¼ˆå¦‚ Module1ï¼‰
 Option Explicit
-' 64Î»¼æÈİµÄAPIÉùÃ÷
+' 64ä½å…¼å®¹çš„APIå£°æ˜
 
-' 32Î»ÉùÃ÷£¨¼æÈİ¾É°æOffice£©
+' 32ä½å£°æ˜ï¼ˆå…¼å®¹æ—§ç‰ˆOfficeï¼‰
 Private Declare Function SetTimer Lib "user32" ( _
     ByVal hWnd As Long, _
     ByVal nIDEvent As Long, _
@@ -26,74 +26,74 @@ Private Declare Function sndPlaySound Lib "winmm.dll" _
 
 Private Const SND_ASYNC As Long = &H1
 Private Const SND_FILENAME As Long = &H20000
-' È«¾Ö±äÁ¿
+' å…¨å±€å˜é‡
 Private mTimerID As Long
 Public RemainingTime As Long
-Public TimeForm As UserForm1 ' ±£´æ´°ÌåÊµÀıµÄÒıÓÃ
+Public TimeForm As UserForm1 ' ä¿å­˜çª—ä½“å®ä¾‹çš„å¼•ç”¨
 
-' »Øµ÷º¯Êı
+' å›è°ƒå‡½æ•°
 Public Sub TimerProc(ByVal hWnd As Long, _
                      ByVal uMsg As Long, _
                      ByVal idEvent As Long, _
                      ByVal dwTime As Long)
     RemainingTime = RemainingTime - 1
-    ' ¸üĞÂ´°ÌåÏÔÊ¾
+    ' æ›´æ–°çª—ä½“æ˜¾ç¤º
     On Error Resume Next
     If Not TimeForm Is Nothing Then
         TimeForm.lblTime.Caption = Format(RemainingTime \ 60, "00") & ":" & _
                                   Format(RemainingTime Mod 60, "00")
-        DoEvents  ' ÔÊĞí½çÃæ¸üĞÂ
+        DoEvents  ' å…è®¸ç•Œé¢æ›´æ–°
     End If
-        '´ËÊ±pptÒÑ¾­¹Ø±ÕÁË ¹Ø±Õ¶¨Ê±Æ÷
+        'æ­¤æ—¶pptå·²ç»å…³é—­äº† å…³é—­å®šæ—¶å™¨
     If ActivePresentation.SlideShowWindow Is Nothing Then
          #If VBA7 Then
             KillTimer 0, mTimerID
         #Else
             KillTimer 0, mTimerID
         #End If
-         ' ¹Ø±Õ´°Ìå²¢ÊÍ·ÅÒıÓÃ
+         ' å…³é—­çª—ä½“å¹¶é‡Šæ”¾å¼•ç”¨
         Unload TimeForm
         Set TimeForm = Nothing
     End If
-    ' ×îºó60ÃëÌáÊ¾
+    ' æœ€å60ç§’æç¤º
     If RemainingTime = 60 Then
              sndPlaySound "C:\Windows\Media\Alarm01.wav", SND_ASYNC Or SND_FILENAME
     End If
-     ' µ¹¼ÆÊ±½áÊø´¦Àí
+     ' å€’è®¡æ—¶ç»“æŸå¤„ç†
     If RemainingTime <= 0 Then
-          ' ÍË³ö»ÃµÆÆ¬·ÅÓ³
+          ' é€€å‡ºå¹»ç¯ç‰‡æ”¾æ˜ 
          #If VBA7 Then
             KillTimer 0, mTimerID
         #Else
             KillTimer 0, mTimerID
         #End If
-         ' ¹Ø±Õ´°Ìå²¢ÊÍ·ÅÒıÓÃ
+         ' å…³é—­çª—ä½“å¹¶é‡Šæ”¾å¼•ç”¨
         If Not TimeForm Is Nothing Then
              Unload TimeForm
              Set TimeForm = Nothing
         End If
         If Not ActivePresentation.SlideShowWindow Is Nothing Then
-            MsgBox "Ê±¼äµ½£¡", vbInformation
+            MsgBox "æ—¶é—´åˆ°ï¼", vbInformation
             ActivePresentation.SlideShowWindow.View.Exit
         End If
     End If
     Exit Sub
 ErrorHandler:
-    ' ´¦Àí´íÎó£¨Èç´°ÌåÒâÍâ¹Ø±Õ£©
-    If Err.Number = 91 Then  ' ¶ÔÏó±äÁ¿Î´ÉèÖÃ
+    ' å¤„ç†é”™è¯¯ï¼ˆå¦‚çª—ä½“æ„å¤–å…³é—­ï¼‰
+    If Err.Number = 91 Then  ' å¯¹è±¡å˜é‡æœªè®¾ç½®
         Set TimeForm = Nothing
     End If
 End Sub
 
-' Æô¶¯µ¹¼ÆÊ±
+' å¯åŠ¨å€’è®¡æ—¶
 Public Sub StartCountdown()
     RemainingTime = 90
-    ' ÏÔÊ¾´°Ìå
+    ' æ˜¾ç¤ºçª—ä½“
     If TimeForm Is Nothing Then
         Set TimeForm = New UserForm1
-        TimeForm.Show vbModeless  ' ·ÇÄ£Ì¬ÏÔÊ¾
+        TimeForm.Show vbModeless  ' éæ¨¡æ€æ˜¾ç¤º
     End If
-    ' Æô¶¯¶¨Ê±Æ÷
+    ' å¯åŠ¨å®šæ—¶å™¨
     #If VBA7 Then
         mTimerID = SetTimer(0, 0, 1000, AddressOf TimerProc)
     #Else
