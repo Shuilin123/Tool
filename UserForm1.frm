@@ -6,25 +6,25 @@ Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} UserForm1
    ClientTop       =   336
    ClientWidth     =   1988
    OleObjectBlob   =   "UserForm1.frx":0000
-   StartUpPosition =   1  'ËùÓĞÕßÖĞĞÄ
+   StartUpPosition =   1  'æ‰€æœ‰è€…ä¸­å¿ƒ
 End
 Attribute VB_Name = "UserForm1"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-' Copyright @2025-2035 Zhuo Li, All Rights Reserved.
-' Email:9031003831@qq.com
+' Copyright @2025-2035 Shuilin, All Rights Reserved.
+' Email:http://www.github.com/Shuilin123/
 ' Date 2025.4.14
-' ÓÃ»§´°Ìå´úÂë£¨ÔÚfrmCountdownÖĞ£©
+' ç”¨æˆ·çª—ä½“ä»£ç ï¼ˆåœ¨frmCountdownä¸­ï¼‰
 Private Sub UserForm_Initialize()
-    Me.Caption = "µ¹¼ÆÊ±"
+    Me.Caption = "å€’è®¡æ—¶"
     Me.lblTime.Font.Size = 30
     Me.lblTime.Caption = "05:00"
 End Sub
 
 Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
-    ' ·ÀÖ¹ÓÃ»§ÊÖ¶¯¹Ø±Õ´°Ìå
+    ' é˜²æ­¢ç”¨æˆ·æ‰‹åŠ¨å…³é—­çª—ä½“
     If CloseMode <> vbFormCode Then
         Cancel = True
     End If
