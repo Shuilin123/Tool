@@ -89,7 +89,7 @@ if "!select!"=="1" (
         echo Package name cannot be empty. Please try again.
         goto retry_install
     )
-    pip install --no-index --find-links=./"!package_name!" "!package_name!"
+    pip install --no-index --find-links="./!package_name!" "!package_name!"
 ) else (
     echo Invalid selection. Please choose 1 or 2.
     goto main_menu
