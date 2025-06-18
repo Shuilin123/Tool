@@ -22,21 +22,21 @@ if "!select!"=="1" (
     rem 平台选择菜单
     echo.
     echo Select target platform:
-    echo 1. Linux x86 (32-bit) 
-    echo 2. Linux x86_64 (64-bit)
-    echo 3. Linux ARM (32-bit)
-    echo 4. Linux ARM (64-bit) 
-    echo 5. Linux PowerPC (64-bit) 
-    echo 6. Linux IBM Z (s390x) 
-    echo 7. Windows x86 (32-bit) 
-    echo 8. Windows x86_64 (64-bit) 
-    echo 9. macOS x86_64 (64-bit) 
-    echo 10. macOS ARM64 (Apple Silicon)
-    echo 11. Linux RISC-V (64-bit) 
-    echo 12. FreeBSD x86_64 (64-bit) 
-    echo 13. Solaris SPARC (64-bit)
-    echo 14. Solaris x86_64 (64-bit)
-    echo 15. AIX PowerPC (64-bit) 
+    echo 1. Linux x86
+    echo 2. Linux x86_64
+    echo 3. Linux ARM
+    echo 4. Linux ARM
+    echo 5. Linux PowerPC
+    echo 6. Linux IBM Z
+    echo 7. Windows x86
+    echo 8. Windows x86_64
+    echo 9. macOS x86_64
+    echo 10. macOS ARM64
+    echo 11. Linux RISC-V
+    echo 12. FreeBSD x86_64
+    echo 13. Solaris SPARC
+    echo 14. Solaris x86_64
+    echo 15. AIX PowerPC
     echo.
     
     :retry_platform
