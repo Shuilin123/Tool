@@ -5,8 +5,9 @@ echo Author: Shuilin
 echo Date: %date%
 :main_menu
 echo.
-echo [1] Download package for offline installation
-echo [2] Install package from local directory
+echo [1] Download package for offline installation.
+echo [2] Install a package on the local path.
+echo [3] Install multiple packages on local path.
 echo.
 set /p "select=Select mode (1 or 2): "
 
@@ -68,7 +69,7 @@ if "!select!"=="1" (
     rem Python版本输入
     :retry_python_version
     set "python_ver="
-    set /p "python_ver=Enter Python version (e.g., 3.8, 3.9, 3.10, 3.11, 3.12, 3.13): "
+    set /p "python_ver=Enter Python version (e.g., 3.8, 3.9, 3.10, 3.11, 3.12, 3.13,3.14.3): "
     if "!python_ver!"=="" (
         echo Python version cannot be empty. Please try again.
         goto retry_python_version
@@ -77,9 +78,9 @@ if "!select!"=="1" (
     mkdir "!package_name!" 2>nul
     pip download "!package_name!" --platform !platform_value! --python-version=!python_ver! --only-binary=:all: --dest "./!package_name!"
     
-    echo.
+   echo ==============================================
     echo Download completed. Files saved in: .\!package_name!\
-    echo.
+    echo ==============================================
     
 ) else if "!select!"=="2" (
     :retry_install
@@ -90,8 +91,43 @@ if "!select!"=="1" (
         goto retry_install
     )
     pip install --no-index --find-links="./!package_name!" "!package_name!"
-) else (
+) else if "!select!"=="3" (
+   :retry_install
+    set "package_dir="
+    set /p "package_dir=Enter package dir name to install: "
+
+    :: 判断输入的目录是否存在
+    if not exist "!package_dir!\" (
+        echo Error: Directory !package_dir! does not exist!
+        goto retry_install
+    )
+
+    echo ==============================================
+    echo Start installing packages from: !package_dir!
+    echo ==============================================
+
+    :: 核心：遍历package_dir下的所有文件夹
+    for /d %%i in ("!package_dir!\*") do (
+        :: %%~ni  获取文件夹名称（纯名称，不带路径）
+        :: %%i   文件夹完整路径
+        echo Installing package: %%~ni
+        pip install --no-index --find-links="%%i" "%%~ni"
+        
+        :: 判断安装是否成功
+        if !errorlevel! equ 0 (
+            echo Success: %%~ni installed successfully
+        ) else (
+            echo Failed: %%~ni installation failed
+        )
+        echo.
+    )
+    echo ==============================================
+    echo All package installation tasks completed!
+    echo ==============================================
+)else (
+    echo ==============================================
     echo Invalid selection. Please choose 1 or 2.
+    echo ==============================================
     goto main_menu
 )
 
